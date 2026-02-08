@@ -95,23 +95,17 @@ jobs:
 - Webhook 알림: "배포 실패! 즉시 확인 필요" 메시지 수신
 - Google Sheets: 에러 로그 자동 기록
 
-<!-- 
-스크린샷 추가 방법:
-GitHub Issue에 이미지를 드래그&드롭하면 URL이 생성됩니다.
-아래 주석을 해제하고 URL을 교체하세요.
-
 ### n8n 워크플로우
-![workflow](이미지_URL)
+![workflow](https://github.com/user-attachments/assets/3672cf67-976b-43a4-9c23-cb9496489eb5)
 
 ### GitHub Actions 실행 결과
-![actions](이미지_URL)
+![actions](https://github.com/user-attachments/assets/4930d8d1-ae30-4aeb-850c-050c26cc3a7b)
 
 ### Google Sheets 에러 로그
-![sheets](이미지_URL)
+![sheets](https://github.com/user-attachments/assets/ef2117fb-7c25-43ab-8b4e-127b1afb8358)
 
 ### Webhook 알림 수신
-![webhook](이미지_URL)
--->
+![webhook](https://github.com/user-attachments/assets/ddc9c717-461b-4f22-be81-516270b6039b)
 
 ## 개발 과정
 
