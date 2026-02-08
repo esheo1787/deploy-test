@@ -1,0 +1,49 @@
+name: Build and Notify
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run build/test
+        id: build
+        run: |
+          echo "빌드 실행 중..."
+          # 여기서 실제 빌드/테스트 실행
+          # 일부러 실패시키려면 아래 주석 해제
+          # exit 1
+          echo "빌드 성공!"
+
+      - name: Notify Success
+        if: success()
+        run: |
+          curl -X POST https://silverwest.app.n8n.cloud/webhook/deploy-webhook \
+            -H "Content-Type: application/json" \
+            -d '{
+              "project": "${{ github.repository }}",
+              "branch": "${{ github.ref_name }}",
+              "developer": "${{ github.actor }}",
+              "commit_message": "${{ github.event.head_commit.message }}",
+              "build_status": "success",
+              "timestamp": "${{ github.event.head_commit.timestamp }}"
+            }'
+
+      - name: Notify Failure
+        if: failure()
+        run: |
+          curl -X POST https://silverwest.app.n8n.cloud/webhook/deploy-webhook \
+            -H "Content-Type: application/json" \
+            -d '{
+              "project": "${{ github.repository }}",
+              "branch": "${{ github.ref_name }}",
+              "developer": "${{ github.actor }}",
+              "commit_message": "${{ github.event.head_commit.message }}",
+              "build_status": "failed",
+              "error_message": "Build failed at step: build",
+              "timestamp": "${{ github.event.head_commit.timestamp }}"
+            }'
