@@ -24,26 +24,26 @@ jobs:
         run: |
           curl -X POST https://silverwest.app.n8n.cloud/webhook/deploy-webhook \
             -H "Content-Type: application/json" \
-            -d '{
-              "project": "${{ github.repository }}",
-              "branch": "${{ github.ref_name }}",
-              "developer": "${{ github.actor }}",
-              "commit_message": "${{ github.event.head_commit.message }}",
-              "build_status": "success",
-              "timestamp": "${{ github.event.head_commit.timestamp }}"
-            }'
+            -d "{
+              \"project\": \"${{ github.repository }}\",
+              \"branch\": \"${{ github.ref_name }}\",
+              \"developer\": \"${{ github.actor }}\",
+              \"commit_message\": \"deploy success\",
+              \"build_status\": \"success\",
+              \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%S)\"
+            }"
 
       - name: Notify Failure
         if: failure()
         run: |
           curl -X POST https://silverwest.app.n8n.cloud/webhook/deploy-webhook \
             -H "Content-Type: application/json" \
-            -d '{
-              "project": "${{ github.repository }}",
-              "branch": "${{ github.ref_name }}",
-              "developer": "${{ github.actor }}",
-              "commit_message": "${{ github.event.head_commit.message }}",
-              "build_status": "failed",
-              "error_message": "Build failed at step: build",
-              "timestamp": "${{ github.event.head_commit.timestamp }}"
-            }'
+            -d "{
+              \"project\": \"${{ github.repository }}\",
+              \"branch\": \"${{ github.ref_name }}\",
+              \"developer\": \"${{ github.actor }}\",
+              \"commit_message\": \"deploy failed\",
+              \"build_status\": \"failed\",
+              \"error_message\": \"Build failed at step: build\",
+              \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%S)\"
+            }"
